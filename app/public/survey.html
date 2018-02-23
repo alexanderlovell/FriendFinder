@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Friend Finder - Survey</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="public/style.css">
+</head>
+<body>
+<!-- Survey containers -->
+<div class='container-fluid'>
+    <div class='jumbotron'>
+        <!-- Survey questions -->
+        <h1>Survey questions</h1>
+        <hr>
+        <form method='POST' action='api/friends.js'>
+            <!-- first two questions are text inputs -->
+            <!-- next 10 questions are form-control with five options each -->
+        </form>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id='matchModal' class='modal-fade' role='dialog'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <!-- add button and title -->
+            </div>
+            <div class='modal-body'>
+                <!-- pass variables for matched friend name and image -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- add jQuery cdn -->
+
+
+<!-- capture data on submit -->
+<script type="text/javascript">
+
+	$('#submit').on("click", function() {
+
+		var userInput = {
+			name: $('#name').val().trim(),
+			photo: $('#photo').val().trim(),
+			scores: [$('#question01').val().trim(), $('#question02').val().trim(), $('#question03').val().trim(), $('#question04').val().trim(), $('#question05').val().trim(), $('#question06').val().trim(), $('#question07').val().trim(), $('#question08').val().trim(), $('#question09').val().trim(), $('#question10').val().trim()]
+		}
+
+		var currentURL = window.location.origin;
+
+		$.post(currentURL + '/api/friends', userInput, function(data) {
+
+			$("#matchName").text(data.name);
+			$("#matchImg").attr("src", data.photo);
+			$("#matchModal").modal("show");
+
+		});
+
+		return false;
+	});
+
+</script>
+
+</body>
+</html>
